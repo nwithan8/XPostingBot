@@ -7,7 +7,7 @@ from prawcore import NotFound
 mention = "u/XPostingBot"
 
 reddit = praw.Reddit(client_id='',
-                     client_secret='Aiu-z0nBLRWyZKP7tydBGVHvYnE',
+                     client_secret='',
                      user_agent='XPostingBot (by u/grtgbln)',
                      username='XPostingBot',
                      password='')
@@ -50,7 +50,6 @@ def xpost(subs, where):
     failedsubs = []
     wasError = False
     for workingsub in subs:
-        #print(workingsub[2:])
         exists = True
         try:
             reddit.subreddits.search_by_name(workingsub[2:], exact=True)
@@ -85,12 +84,10 @@ def xpost(subs, where):
 def process(text, where):
     subs = re.findall(r'\br/\w+', text)
     if subs:
-        #print(subs[0])
         xpost(subs, where)
 
 def main():
     for item in reddit.inbox.unread():
-        
         if mention in item.body:
             text = item.body
             print(text)
